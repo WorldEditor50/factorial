@@ -4,20 +4,21 @@
 LargeInt LargeInt::operator +(const LargeInt &x)
 {
     size_t s = x.size() > data.size() ? x.size() : data.size();
-    std::string data_;
+    std::string data1;
+    std::string data2;
     if (x.size() > data.size()) {
-        data = std::string(x.size() - data.size(), '0') + data;
+        data1 = x.data;
+        data2 = std::string(x.size() - data.size(), '0') + data;
     } else {
-        data_ = std::string(data.size() - x.size(), '0') + x.data;
+        data1 = data;
+        data2 = std::string(data.size() - x.size(), '0') + x.data;
     }
+    int n = 0;
     std::string y(s + 1, '0');
     for (int i = s - 1; i >= 0; i--) {
-        char value = data[i] - '0' + data_[i] - '0';
-        y[i + 1] += value % 10;
-        y[i] += value / 10;
-    }
-    if (y[0] == '0') {
-        y = std::string(y, 1, y.size() - 1);
+        int value = data1[i] - '0' + data2[i] - '0';
+        y[i + 1] += (value + n) % 10;
+        n = (value + n) / 10;
     }
     return y;
 }
@@ -33,13 +34,13 @@ LargeInt LargeInt::operator *(const LargeInt &x)
         p1 = &data;
         p2 = &x.data;
     }
-    const std::string &data1 = (*p1);
-    const std::string &data2 = (*p2);
+    const std::string &data1 = *p1;
+    const std::string &data2 = *p2;
     std::vector<std::string> r;
     for (int i = data2.size() - 1; i >= 0; i--) {
         std::string u(data1.size() + 1, '0');
         for (int j = data1.size() - 1; j >= 0; j--) {
-            char value = (data1[j] - '0') * (data2[i] - '0');
+            int value = (data1[j] - '0') * (data2[i] - '0');
             u[j + 1] += value % 10;
             u[j] += value / 10;
         }
