@@ -8,11 +8,11 @@
 class LargeInt
 {
 public:
-    LargeInt(){}
-    LargeInt(const LargeInt& x):data(x.data){}
-    LargeInt(const std::string& x):data(x){}
-    LargeInt(int x): data(std::to_string(x)){}
-    LargeInt(size_t N): data(std::string(N, 48)){}
+    LargeInt():symbol(true){}
+    LargeInt(const LargeInt& x):symbol(true),data(x.data){}
+    LargeInt(const std::string& x):symbol(true),data(x){}
+    LargeInt(int x):symbol(true),data(std::to_string(x)){}
+    LargeInt(size_t N):symbol(true),data(std::string(N, 48)){}
     ~LargeInt(){}
     inline size_t size() const {return data.size();}
     inline char& operator[](size_t i) {return data[i];}
@@ -80,6 +80,7 @@ public:
     LargeInt &operator *= (int r);
     LargeInt &operator /= (int r);
 private:
+    bool symbol;
     std::string data;
 };
 
