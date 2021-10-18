@@ -16,9 +16,9 @@ public:
     ~LargeInt(){}
     inline size_t size() const {return data.size();}
     inline char& operator[](size_t i) {return data[i];}
-    inline std::string toString() const
+    inline std::string toString()
     {
-        return data;
+        return removeZeros(data);
     }
     LargeInt &operator =(const LargeInt &x)
     {
@@ -79,6 +79,9 @@ public:
     LargeInt &operator -= (int r);
     LargeInt &operator *= (int r);
     LargeInt &operator /= (int r);
+private:
+    static std::string removeZeros(const std::string &x);
+    static int compare(const std::string &s1, const std::string &s2);
 private:
     bool symbol;
     std::string data;

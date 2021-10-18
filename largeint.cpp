@@ -22,7 +22,7 @@ LargeInt LargeInt::operator +(const LargeInt &x)
     }
     y[0] += n;
     if (y[0] == '0') {
-        y = y.substr(1);
+        y = y.substr(1, y.size() - 1);
     }
     return y;
 }
@@ -84,7 +84,7 @@ LargeInt LargeInt::operator *(const LargeInt &x)
         r[i] = std::string(r.size() - i - 1, '0') + r[i] + std::string(i, '0');
     }
     size_t s = r[0].size();
-    std::string y(s, '0');
+    std::string y(s + 1, '0');
     int n = 0;
     for (int j = r[0].size() - 1; j >= 0; j--) {
         int value = 0;
@@ -95,4 +95,40 @@ LargeInt LargeInt::operator *(const LargeInt &x)
         n = (value + n) / 10;
     }
     return y;
+}
+
+std::string LargeInt::removeZeros(const std::string &x)
+{
+    size_t pos = 0;
+    for (size_t i = 0; i < x.size(); i++) {
+        if (x[i] != '0') {
+            break;
+        } else {
+            pos++;
+        }
+    }
+    return x.substr(pos, x.size() - pos);
+}
+
+int LargeInt::compare(const std::string &s1, const std::string &s2)
+{
+    std::string data1 = removeZeros(s1);
+    std::string data2 = removeZeros(s2);
+    int r = 0;
+    if (data1.size() > data2.size()) {
+        r = 1;
+    } else if (data1.size() < data2.size()) {
+        r = -1;
+    } else {
+        for (size_t i = 0; i < data1.size(); i++) {
+            if (data1[i] > data2[i]) {
+                r = 1;
+                break;
+            } else if (data1[i] < data2[i]) {
+                r = -1;
+                break;
+            }
+        }
+    }
+    return r;
 }

@@ -32,9 +32,9 @@ LargeInt fibonacci(int n)
 
 int main()
 {
-    LargeInt x1 = 10000;
+    LargeInt x1 = 999;
     LargeInt x2 = 111;
-    LargeInt x3 = x1 - x2;
+    LargeInt x3 = x1 * x2;
     std::cout<<x1.toString()<<std::endl;
     std::cout<<x2.toString()<<std::endl;
     std::cout<<x3.toString()<<std::endl;
